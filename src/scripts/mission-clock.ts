@@ -1,4 +1,4 @@
-const EPOCH = new Date('2025-01-01T00:00:00Z').getTime();
+const EPOCH = new Date('2026-03-09T14:28:00Z').getTime();
 
 function pad(n: number, len = 2): string {
   return String(n).padStart(len, '0');
