@@ -1,0 +1,47 @@
+<!-- Section 0 — Terminal boot animation -->
+<div id="boot-sequence" class="boot-sequence" aria-live="polite">
+  <div class="boot-terminal">
+    <pre class="boot-output mono" id="boot-output"></pre>
+  </div>
+</div>
+
+<style>
+  .boot-sequence {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: var(--black);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 48px;
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+  .boot-sequence.done {
+    pointer-events: none;
+    opacity: 0;
+  }
+  .boot-sequence.hidden {
+    display: none;
+  }
+  .boot-terminal {
+    width: 100%;
+    max-width: 600px;
+  }
+  .boot-output {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--signal);
+    white-space: pre-wrap;
+  }
+  .boot-output .dim { color: var(--dim); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .boot-sequence { display: none; }
+  }
+</style>
+
+<script>
+  import '../scripts/boot';
+</script>

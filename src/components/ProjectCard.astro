@@ -1,0 +1,104 @@
+---
+interface Link {
+  label: string;
+  href: string;
+}
+interface Props {
+  name: string;
+  description: string;
+  status: 'PLANNED' | 'IN PROGRESS' | 'LIVE';
+  slot: string;
+  links: Link[];
+}
+const { name, description, status, slot, links } = Astro.props;
+
+const statusColor = {
+  'PLANNED': 'var(--dim)',
+  'IN PROGRESS': 'var(--amber)',
+  'LIVE': 'var(--signal)',
+}[status];
+---
+<div class="project-card" data-lock style={`--status-color: ${statusColor}`}>
+  <div class="card-header">
+    <span class="card-slot mono text-dim">{slot}</span>
+    <span class="card-status mono" style={`color: ${statusColor}`}>
+      <span class="card-dot" style={`background: ${statusColor}`}></span>
+      [{status}]
+    </span>
+  </div>
+  <h3 class="card-name display uppercase">{name}</h3>
+  <p class="card-desc">{description}</p>
+  <div class="card-links mono">
+    {links.map((link) => (
+      <a href={link.href} target="_blank" rel="noopener noreferrer" class="card-link" data-interactive>
+        {link.label}
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .project-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--wire);
+    padding: 32px;
+    transition: border-color 0.3s;
+  }
+  .project-card:hover {
+    border-color: var(--signal);
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .card-slot { font-size: 11px; }
+  .card-status {
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .card-name {
+    font-size: 28px;
+    margin-bottom: 12px;
+    color: var(--white);
+    letter-spacing: 0.06em;
+  }
+  .card-desc {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .card-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+  }
+  .card-link {
+    color: var(--bright);
+    transition: color 0.2s;
+  }
+  .card-link:hover {
+    color: var(--signal);
+  }
+
+  @media (max-width: 768px) {
+    .card-name { font-size: 22px; }
+  }
+</style>

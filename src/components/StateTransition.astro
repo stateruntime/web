@@ -1,0 +1,27 @@
+<!-- Full-viewport sweep transition overlay -->
+<div id="state-transition" class="state-transition" aria-hidden="true">
+  <div class="state-transition-bar"></div>
+</div>
+
+<style>
+  .state-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .state-transition-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--signal);
+    transform: translateX(-101%);
+  }
+</style>
+
+<script>
+  import '../scripts/state-transition';
+</script>

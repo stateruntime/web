@@ -1,0 +1,156 @@
+/* ── Reset ───────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── Font Faces ──────────────────────────────── */
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/space-grotesk-300.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/space-grotesk-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Space Mono';
+  src: url('/fonts/space-mono-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Space Mono';
+  src: url('/fonts/space-mono-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Custom Properties ───────────────────────── */
+:root {
+  /* Core palette */
+  --black:   #0A0A0A;
+  --surface: #111111;
+  --wire:    #1A1A1A;
+  --dim:     #555555;
+  --mid:     #888888;
+  --bright:  #CCCCCC;
+  --white:   #F0F0F0;
+  --signal:  #00FF88;
+  --amber:   #FFAA00;
+  --danger:  #FF3333;
+
+  /* Semantic */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono:    'Space Mono', 'Courier New', monospace;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Base ────────────────────────────────────── */
+html {
+  background: var(--black);
+  color: var(--bright);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  html { cursor: auto; }
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--black);
+}
+
+/* ── Scrollbar ───────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--wire); }
+::-webkit-scrollbar-thumb { background: var(--signal); border-radius: 2px; }
+html { scrollbar-width: thin; scrollbar-color: var(--signal) var(--wire); }
+
+/* ── Selection ───────────────────────────────── */
+::selection {
+  background: var(--signal);
+  color: var(--black);
+}
+
+/* ── Typography ──────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+
+a {
+  color: var(--signal);
+  text-decoration: none;
+  cursor: none;
+}
+
+button { cursor: none; }
+
+/* ── Utilities ───────────────────────────────── */
+.mono { font-family: var(--font-mono); }
+.display { font-family: var(--font-display); }
+.text-signal { color: var(--signal); }
+.text-amber { color: var(--amber); }
+.text-dim { color: var(--dim); }
+.text-mid { color: var(--mid); }
+.text-bright { color: var(--bright); }
+.text-white { color: var(--white); }
+.uppercase { text-transform: uppercase; }
+.tracking-wide { letter-spacing: 0.1em; }
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Focus ───────────────────────────────────── */
+:focus-visible {
+  outline: 1px solid var(--signal);
+  outline-offset: 2px;
+}
+
+/* ── Reduced Motion ──────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}

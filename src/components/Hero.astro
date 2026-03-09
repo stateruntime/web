@@ -1,0 +1,192 @@
+---
+import StatusChip from './StatusChip.astro';
+import MissionClock from './MissionClock.astro';
+---
+<section id="hero" class="hero">
+  <!-- Grid background -->
+  <div class="hero-grid" data-parallax="0.01" aria-hidden="true"></div>
+
+  <!-- Top right: Status — more spacing from top -->
+  <div class="hero-status">
+    <StatusChip />
+    <MissionClock />
+  </div>
+
+  <!-- Center: Headline -->
+  <div class="hero-headline">
+    <h1 class="display" id="hero-h1">
+      <span class="hero-line-text" id="hero-l1">We build software</span>
+      <span class="hero-line-text" id="hero-l2">that fills gaps</span>
+    </h1>
+  </div>
+
+  <!-- Bottom left: Coordinates -->
+  <div class="hero-coords mono" id="hero-coords" aria-hidden="true">
+    <span class="text-dim">LAT</span> <span id="coord-lat">00.0000</span>
+    <span class="text-dim" style="margin-left: 16px">LON</span> <span id="coord-lon">00.0000</span>
+  </div>
+
+  <!-- Bottom right: Scroll cue -->
+  <div class="hero-scroll mono">
+    <span class="text-dim">[SCROLL]</span>
+    <div class="scroll-indicator" aria-hidden="true">
+      <div class="scroll-dot"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 48px;
+    padding-top: 140px;
+    padding-bottom: 160px;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--wire) 1px, transparent 1px),
+      linear-gradient(90deg, var(--wire) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.5;
+  }
+
+  .hero-status {
+    position: absolute;
+    top: 80px;
+    right: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hero-headline {
+    text-align: center;
+    z-index: 1;
+  }
+
+  .hero-headline h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 300;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-line-text {
+    display: block;
+    transition: opacity 0.4s, transform 0.4s var(--ease-out-expo);
+  }
+  .hero-line-text.fade-out {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  .hero-line-text.fade-in {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .hero-line-text.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hero-coords {
+    position: absolute;
+    bottom: 48px;
+    left: 48px;
+    font-size: 11px;
+    color: var(--mid);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 48px;
+    right: 48px;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .scroll-indicator {
+    width: 1px;
+    height: 40px;
+    background: var(--wire);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scroll-dot {
+    width: 1px;
+    height: 12px;
+    background: var(--signal);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0% { transform: translateY(-12px); }
+    100% { transform: translateY(40px); }
+  }
+
+  @media (max-width: 768px) {
+    .hero { padding: 24px; }
+    .hero { padding-top: 100px; }
+    .hero-status { top: 56px; right: 24px; }
+    .hero-coords { display: none; }
+    .hero-scroll { bottom: 24px; right: 24px; }
+  }
+</style>
+
+<script>
+  // Coordinate cycling animation
+  const lat = document.getElementById('coord-lat');
+  const lon = document.getElementById('coord-lon');
+
+  if (lat && lon) {
+    function randomCoord() {
+      return (Math.random() * 180 - 90).toFixed(4);
+    }
+    setInterval(() => {
+      lat!.textContent = randomCoord();
+      lon!.textContent = randomCoord();
+    }, 3000);
+  }
+
+  // Headline swap: "We build software that fills gaps" → "Libraries for space & dev tooling"
+  const l1 = document.getElementById('hero-l1');
+  const l2 = document.getElementById('hero-l2');
+  const h1 = document.getElementById('hero-h1');
+
+  if (l1 && l2 && h1 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setTimeout(() => {
+      // Fade out current lines
+      l1.classList.add('fade-out');
+      l2.classList.add('fade-out');
+
+      setTimeout(() => {
+        // Replace content, prepare fade-in
+        l1.textContent = 'Libraries for';
+        l1.classList.remove('fade-out');
+        l1.classList.add('fade-in');
+
+        l2.textContent = 'space & dev tooling';
+        l2.classList.remove('fade-out');
+        l2.classList.add('fade-in');
+
+        // Trigger fade-in with stagger
+        requestAnimationFrame(() => {
+          setTimeout(() => l1.classList.add('visible'), 0);
+          setTimeout(() => l2.classList.add('visible'), 100);
+        });
+      }, 450);
+    }, 2800);
+  }
+</script>

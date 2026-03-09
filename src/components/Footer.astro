@@ -1,0 +1,54 @@
+---
+import StatusChip from './StatusChip.astro';
+import MissionClock from './MissionClock.astro';
+---
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="/" class="footer-left" aria-label="Home">
+      <img src="/icon.svg" alt="State Runtime" width="28" height="28" />
+    </a>
+    <div class="footer-center mono text-dim">
+      More libraries incoming
+    </div>
+    <div class="footer-right">
+      <StatusChip />
+      <MissionClock />
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--wire);
+    padding: 32px 0;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-left img {
+    display: block;
+  }
+  .footer-center {
+    font-size: 11px;
+  }
+  .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .footer-inner {
+      flex-direction: column;
+      gap: 16px;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .footer-center { order: 3; }
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+interface Props {
+  label?: string;
+  color?: string;
+}
+const { label = 'NOMINAL', color = 'var(--signal)' } = Astro.props;
+---
+<span class="status-chip" style={`--chip-color: ${color}`}>
+  <span class="status-dot"></span>
+  [{label}]
+</span>
+
+<style>
+  .status-chip {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--chip-color);
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--chip-color);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+</style>

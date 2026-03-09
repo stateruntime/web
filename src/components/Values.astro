@@ -1,0 +1,88 @@
+---
+const values = [
+  {
+    number: '01',
+    title: 'OPEN CORE',
+    text: 'Core libraries are free and open source. Read the code, fork it, build on it. Products may come later, but the foundations stay open.',
+  },
+  {
+    number: '02',
+    title: 'RELIABILITY',
+    text: 'If your code runs somewhere you can\'t reach, it has to be correct before it ships. We test exhaustively and keep things simple enough to reason about.',
+  },
+  {
+    number: '03',
+    title: 'HONESTY',
+    text: 'We ship when things are ready, not when we feel pressure to. If something isn\'t done, we say so. If we don\'t know, we say that too. No hype, no roadmaps we can\'t keep.',
+  },
+];
+---
+<section id="values" class="values">
+  <div class="values-inner">
+    {values.map((v) => (
+      <div class="value-col" data-scan>
+        <span class="value-number display" aria-hidden="true">{v.number}</span>
+        <h3 class="value-title display uppercase tracking-wide">{v.title}</h3>
+        <p class="value-text">{v.text}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .values {
+    padding: 160px 0;
+  }
+  .values-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  .value-col {
+    position: relative;
+  }
+  .value-number {
+    font-size: 120px;
+    font-weight: 300;
+    color: var(--wire);
+    line-height: 1;
+    position: absolute;
+    top: -20px;
+    left: -8px;
+    user-select: none;
+    z-index: 0;
+  }
+  .value-title {
+    font-size: 16px;
+    color: var(--signal);
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.15em;
+  }
+  .value-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--mid);
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    .values { padding: 80px 0; }
+    .values-inner {
+      grid-template-columns: 1fr;
+      padding: 0 24px;
+      gap: 64px;
+    }
+    .value-number { font-size: 80px; }
+  }
+</style>
+
+<script>
+  import { scanIn } from '../scripts/scan-in';
+  scanIn('.value-text', { stagger: 0.2 });
+</script>

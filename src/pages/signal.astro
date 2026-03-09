@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="SIGNAL - State Runtime" description="Internal diagnostic output">
+  <div class="signal-page">
+    <div class="signal-terminal mono">
+      <pre class="signal-output">
+STATE RUNTIME - DIAGNOSTIC SIGNAL
+══════════════════════════════════
+
+&gt; running test suite: @stateruntime/behave
+
+  ✓ machine() creates valid state machine
+  ✓ transition validates target state exists
+  ✓ guard predicates prevent invalid transitions
+  ✓ actions execute on transition
+  ✓ nested states resolve correctly
+  ✓ parallel regions maintain independence
+  ✓ history states restore previous configuration
+  ✓ serialization round-trips without data loss
+
+  8 passed · 0 failed · 0 skipped
+  elapsed: 12ms
+
+&gt; running test suite: @stateruntime/fault
+
+  ✓ ok() wraps value correctly
+  ✓ err() wraps error correctly
+  ✓ map() transforms ok values
+  ✓ mapErr() transforms error values
+  ✓ andThen() chains results
+  ✓ unwrapOr() provides fallback
+  ✓ match() exhaustively handles variants
+
+  7 passed · 0 failed · 0 skipped
+  elapsed: 8ms
+
+══════════════════════════════════
+ALL SYSTEMS NOMINAL
+      </pre>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .signal-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    padding: 48px;
+    background: var(--black);
+  }
+  .signal-terminal {
+    max-width: 600px;
+  }
+  .signal-output {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--signal);
+    white-space: pre-wrap;
+  }
+</style>

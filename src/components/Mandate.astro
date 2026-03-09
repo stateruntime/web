@@ -1,0 +1,98 @@
+---
+const declarations = [
+  'We build libraries for space systems and developer tooling. Two domains, one standard: correctness first, no shortcuts.',
+  'Core libraries are open source. Read the code, use it, fork it, contribute to it. We may build products on top someday, but the foundations stay open.',
+  'Space needs software that works the first time. Dev tooling needs software that works every time. Same discipline, different stakes.',
+  'Each library is self-contained and auditable. We keep dependencies minimal because dependencies are liabilities.',
+  'Right now it\'s just one person building. That\'s fine. Good software doesn\'t always need a grand justification.',
+];
+---
+<section id="mandate" class="mandate">
+  <div class="mandate-inner">
+    <div class="mandate-label-wrap">
+      <span class="mandate-label mono uppercase tracking-wide">What We Do</span>
+    </div>
+    <div class="mandate-content">
+      {declarations.map((text, i) => (
+        <div class="declaration" data-scan>
+          <span class="declaration-num mono text-dim">{String(i + 1).padStart(2, '0')}</span>
+          <p class="declaration-text">{text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .mandate {
+    padding: 160px 0;
+    position: relative;
+  }
+
+  .mandate-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: flex;
+    gap: 80px;
+  }
+
+  .mandate-label-wrap {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .mandate-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.15em;
+  }
+
+  .mandate-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .declaration {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .declaration-num {
+    font-size: 12px;
+    flex-shrink: 0;
+    padding-top: 4px;
+  }
+
+  .declaration-text {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--bright);
+    max-width: 640px;
+  }
+
+  @media (max-width: 768px) {
+    .mandate { padding: 80px 0; }
+    .mandate-inner {
+      flex-direction: column;
+      gap: 32px;
+      padding: 0 24px;
+    }
+    .mandate-label {
+      writing-mode: horizontal-tb;
+      transform: none;
+    }
+    .declaration-text { font-size: 16px; }
+  }
+</style>
+
+<script>
+  import { scanIn } from '../scripts/scan-in';
+  scanIn('[data-scan] .declaration-text', { stagger: 0.15 });
+</script>

@@ -1,0 +1,74 @@
+---
+interface Props {
+  slot: string;
+}
+const { slot } = Astro.props;
+---
+<div class="redacted-card" data-interactive>
+  <span class="redacted-slot mono text-dim">{slot}</span>
+  <div class="redacted-name">
+    <span class="redacted-bar"></span>
+  </div>
+  <span class="redacted-status mono text-dim">[CLASSIFIED]</span>
+</div>
+
+<style>
+  .redacted-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border: 1px solid var(--wire);
+    background: var(--surface);
+    transition: border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .redacted-card:hover {
+    border-color: var(--dim);
+  }
+  .redacted-slot {
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .redacted-name {
+    flex: 1;
+  }
+  .redacted-bar {
+    display: block;
+    width: 80px;
+    height: 12px;
+    background: var(--dim);
+  }
+  .redacted-status {
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  /* Glitch effect on hover */
+  .redacted-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 255, 136, 0.03) 2px,
+      rgba(0, 255, 136, 0.03) 4px
+    );
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .redacted-card:hover::after {
+    opacity: 1;
+    animation: glitch 0.3s steps(3) infinite;
+  }
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    33% { transform: translate(-1px, 1px); }
+    66% { transform: translate(1px, -1px); }
+    100% { transform: translate(0); }
+  }
+</style>

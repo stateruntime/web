@@ -1,0 +1,148 @@
+---
+const links = [
+  { label: '01_PROJECTS', href: '#projects' },
+  { label: '02_MISSION', href: '#mandate' },
+  { label: '03_GITHUB', href: 'https://github.com/stateruntime', external: true },
+];
+---
+<nav class="nav" id="main-nav" aria-label="Main navigation">
+  <a href="#hero" class="sr-only focus-visible-skip">Skip to content</a>
+  <a href="/" class="nav-logo" aria-label="Home">
+    <img src="/icon.svg" alt="" width="84" height="84" />
+    <span class="nav-logo-text mono">STATE RUNTIME</span>
+  </a>
+  <div class="nav-links">
+    {links.map((link) => (
+      <a
+        href={link.href}
+        class="nav-link mono"
+        data-interactive
+        data-nav-link
+        {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      >
+        [{link.label}{link.external ? ' →' : ''}]
+      </a>
+    ))}
+  </div>
+  <button class="nav-mobile-btn mono" id="mobile-menu-btn" data-interactive aria-label="Open menu" aria-expanded="false">
+    [MENU]
+  </button>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 8000;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo img {
+    display: block;
+  }
+  .nav-logo-text {
+    color: #fff;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    padding-top: 5px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .nav-link {
+    font-size: 11px;
+    color: var(--dim);
+    padding: 6px 10px;
+    transition: color 0.2s;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--signal);
+  }
+  .nav-mobile-btn {
+    display: none;
+    font-size: 11px;
+    color: var(--dim);
+    background: none;
+    border: none;
+    padding: 6px 10px;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 768px) {
+    .nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .nav-mobile-btn { display: block; }
+    .nav-logo img { width: 56px; height: 56px; }
+    .nav-logo-text { font-size: 11px; }
+  }
+</style>
+
+<script>
+  // Active section tracking
+  const sections = ['projects', 'mandate'];
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => {
+            const href = link.getAttribute('href');
+            link.classList.toggle('active', href === `#${entry.target.id}`);
+          });
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  sections.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  // Smooth scroll with state transition
+  navLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href?.startsWith('#')) return;
+      e.preventDefault();
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      const transition = (window as any).__stateTransition;
+      if (transition) {
+        transition(() => {
+          target.scrollIntoView({ behavior: 'auto' });
+        });
+      } else {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Mobile menu toggle
+  const btn = document.getElementById('mobile-menu-btn');
+  btn?.addEventListener('click', () => {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+      menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', menu.classList.contains('open') ? 'true' : 'false');
+    }
+  });
+</script>

@@ -1,0 +1,105 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import RedactedCard from './RedactedCard.astro';
+
+const redactedSlots = ['03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+---
+<section id="projects" class="projects">
+  <div class="projects-inner">
+    <div class="projects-header">
+      <h2 class="display uppercase projects-title">Libraries</h2>
+      <div class="projects-meta mono">
+        <span class="text-dim">12 total</span>
+        <span class="text-dim">-</span>
+        <span class="text-dim">2 planned</span>
+        <span class="text-dim">-</span>
+        <span class="text-dim">10 classified</span>
+      </div>
+    </div>
+
+    <div class="projects-active">
+      <ProjectCard
+        name="behave"
+        description=""
+        status="PLANNED"
+        slot="01"
+        links={[
+          { label: 'GitHub', href: 'https://github.com/stateruntime/behave' },
+          { label: 'crates.io', href: 'https://crates.io/crates/behave' },
+          { label: 'Docs', href: 'https://docs.stateruntime.com/behave' },
+        ]}
+      />
+      <ProjectCard
+        name="fault"
+        description=""
+        status="PLANNED"
+        slot="02"
+        links={[
+          { label: 'GitHub', href: 'https://github.com/stateruntime/fault' },
+          { label: 'crates.io', href: 'https://crates.io/crates/fault' },
+          { label: 'Docs', href: 'https://docs.stateruntime.com/fault' },
+        ]}
+      />
+    </div>
+
+    <div class="projects-classified">
+      {redactedSlots.map((s) => (
+        <RedactedCard slot={s} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects {
+    padding: 160px 0;
+  }
+  .projects-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .projects-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 64px;
+    border-bottom: 1px solid var(--wire);
+    padding-bottom: 24px;
+  }
+  .projects-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--white);
+    letter-spacing: 0.06em;
+  }
+  .projects-meta {
+    font-size: 12px;
+    display: flex;
+    gap: 8px;
+  }
+  .projects-active {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .projects-classified {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .projects { padding: 80px 0; }
+    .projects-inner { padding: 0 24px; }
+    .projects-header {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+</style>
+
+<script>
+  import { initLockAnimations } from '../scripts/lock-animation';
+  initLockAnimations();
+</script>

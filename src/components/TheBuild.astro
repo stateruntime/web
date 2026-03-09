@@ -1,0 +1,78 @@
+---
+import StatusChip from './StatusChip.astro';
+---
+<section id="build" class="the-build">
+  <div class="build-inner">
+    <p class="build-goal mono text-dim uppercase tracking-wide">Goal: Bring space closer to people</p>
+    <h2 class="build-headline display" data-scan>
+      Built in public.<br/>
+      Open source.<br/>
+      From scratch.
+    </h2>
+    <div class="build-status">
+      <StatusChip />
+      <span class="mono text-dim" style="font-size: 12px">All systems operational</span>
+    </div>
+    <a href="https://github.com/stateruntime" target="_blank" rel="noopener noreferrer" class="build-link mono" data-interactive>
+      github.com/stateruntime
+      <span class="build-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .the-build {
+    padding: 160px 0;
+    text-align: center;
+  }
+  .build-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+  .build-goal {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+  }
+  .build-headline {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+  }
+  .build-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .build-link {
+    font-size: 14px;
+    color: var(--signal);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--wire);
+    padding: 12px 24px;
+    transition: border-color 0.3s, gap 0.3s;
+  }
+  .build-link:hover {
+    border-color: var(--signal);
+    gap: 14px;
+  }
+  .build-arrow {
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+  .build-link:hover .build-arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 768px) {
+    .the-build { padding: 80px 0; }
+    .build-inner { padding: 0 24px; }
+  }
+</style>

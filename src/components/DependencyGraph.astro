@@ -1,0 +1,69 @@
+---
+---
+<section id="graph" class="graph-section">
+  <div class="graph-header">
+    <h2 class="display uppercase graph-title">Dependency Graph</h2>
+    <span class="mono text-dim graph-subtitle" style="font-size: 12px">system topology</span>
+  </div>
+  <div class="graph-container">
+    <canvas id="dep-graph" class="graph-canvas"></canvas>
+    <div id="graph-tooltip" class="graph-tooltip mono" aria-hidden="true"></div>
+  </div>
+  <div class="sr-only" role="img" aria-label="Dependency graph showing two library nodes - behave and fault - connected to each other.">
+    Dependency graph visualization
+  </div>
+</section>
+
+<style>
+  .graph-section {
+    padding: 80px 0 160px;
+  }
+  .graph-header {
+    max-width: 1200px;
+    margin: 0 auto 48px;
+    padding: 0 48px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .graph-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--white);
+    letter-spacing: 0.06em;
+  }
+  .graph-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+  }
+  .graph-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .graph-tooltip {
+    position: absolute;
+    background: var(--surface);
+    border: 1px solid var(--wire);
+    padding: 8px 12px;
+    font-size: 11px;
+    color: var(--bright);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+  }
+  .graph-tooltip.visible {
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .graph-section { padding: 40px 0 80px; }
+    .graph-header { padding: 0 24px; }
+    .graph-container { height: 200px; }
+  }
+</style>
+
+<script>
+  import '../scripts/dependency-graph';
+</script>

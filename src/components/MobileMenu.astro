@@ -1,0 +1,97 @@
+---
+const links = [
+  { label: '01_PROJECTS', href: '#projects' },
+  { label: '02_MISSION', href: '#mandate' },
+  { label: '03_VALUES', href: '#values' },
+  { label: '04_GITHUB', href: 'https://github.com/stateruntime', external: true },
+];
+---
+<div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+  <button class="mobile-close mono" id="mobile-close-btn" data-interactive aria-label="Close menu">
+    [CLOSE]
+  </button>
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    {links.map((link) => (
+      <a
+        href={link.href}
+        class="mobile-link mono display uppercase"
+        data-mobile-link
+        data-interactive
+        {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      >
+        [{link.label}{link.external ? ' →' : ''}]
+      </a>
+    ))}
+  </nav>
+</div>
+
+<style>
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 8500;
+    background: var(--black);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .mobile-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .mobile-close {
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    font-size: 11px;
+    color: var(--dim);
+    background: none;
+    border: none;
+    padding: 6px 10px;
+    letter-spacing: 0.05em;
+  }
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    text-align: center;
+  }
+  .mobile-link {
+    font-size: 18px;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+  .mobile-link:hover {
+    color: var(--signal);
+  }
+</style>
+
+<script>
+  const menu = document.getElementById('mobile-menu');
+  const closeBtn = document.getElementById('mobile-close-btn');
+  const mobileLinks = document.querySelectorAll('[data-mobile-link]');
+
+  closeBtn?.addEventListener('click', () => {
+    menu?.classList.remove('open');
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    menuBtn?.setAttribute('aria-expanded', 'false');
+  });
+
+  mobileLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (href?.startsWith('#')) {
+        e.preventDefault();
+        menu?.classList.remove('open');
+        const target = document.querySelector(href);
+        target?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
