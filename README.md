@@ -1,3 +1,5 @@
+CC: Completely vibecoded with Claude.
+
 # Astro Starter Kit: Basics
 
 ```sh
