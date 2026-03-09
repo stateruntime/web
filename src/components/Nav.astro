@@ -93,21 +93,22 @@ const links = [
 
 <script>
   // Active section tracking
-  const sections = ['projects', 'mandate'];
+  const sections = ['hero', 'projects', 'mandate'];
   const navLinks = document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]');
 
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
+          const id = entry.target.id;
           navLinks.forEach((link) => {
             const href = link.getAttribute('href');
-            link.classList.toggle('active', href === `#${entry.target.id}`);
+            link.classList.toggle('active', id !== 'hero' && href === `#${id}`);
           });
         }
       });
     },
-    { threshold: 0.3 }
+    { rootMargin: '-10% 0px -70% 0px' }
   );
 
   sections.forEach((id) => {
